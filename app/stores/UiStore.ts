@@ -410,6 +410,9 @@ class UiStore {
       this.secondaryRightSidebar = panel;
     } else {
       this.rightSidebar = panel;
+      // Persist so that closing the panel is not undone by a stale snapshot
+      // written by another setting when the page is reloaded.
+      this.persist();
     }
   };
 

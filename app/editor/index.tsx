@@ -597,9 +597,13 @@ export class Editor extends React.PureComponent<
       },
     });
 
-    // Tell third-party libraries and screen-readers that this is an input
-    view.dom.setAttribute("role", "textbox");
-    view.dom.setAttribute("aria-label", "Editor content");
+    // Tell third-party libraries and screen-readers that this is an input. A
+    // cache-only copy is shown while the live editor loads and must not share
+    // its accessible name, otherwise the content is announced twice.
+    if (!self.props.cacheOnly) {
+      view.dom.setAttribute("role", "textbox");
+      view.dom.setAttribute("aria-label", "Editor content");
+    }
 
     return view;
   }
